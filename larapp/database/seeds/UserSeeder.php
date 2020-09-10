@@ -32,5 +32,7 @@ class UserSeeder extends Seeder
         $user->address = "street happyland";
         $user->password = bcrypt("amiguito");
         $user->save();
+
+        factory(User::class, 10)->create();
     }
 }
