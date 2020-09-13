@@ -5,7 +5,7 @@
 use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
-use Faker\Provider\en_US\Person as FakePerson;
+use Faker\Provider\it_IT\Person as FakePerson;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,13 +20,19 @@ use Faker\Provider\en_US\Person as FakePerson;
 
 $factory->define(User::class, function (Faker $faker) {
     $faker->addProvider(new FakePerson($faker));
+    $birthdate = $faker->dateTimeBetween(
+        $startDate = '1960-01-01',
+        $endDate = '1999-12-31'
+    )->format("Y-m-d");
+    $gender = $faker->randomElement(['Male', 'Female']);
     return [
-        'fullname' => $faker->name,
+        'fullname' => $faker->name(strtolower($gender)),
         'email' => $faker->unique()->safeEmail,
-        'phone' => 123456789,
-        'birthdate' => '1990-01-01',
-        'gender' => "Male",
-        'address' => 'street a some b',
+        'phone' => $faker->numberBetween($min = 3101000000, $max = 3202000000),
+        'birthdate' => $birthdate,
+        'gender' => $gender,
+        'address' => $faker->address,
+        'photo' => 'user.jpg',
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'remember_token' => Str::random(10),
     ];
