@@ -25,6 +25,7 @@ $factory->define(User::class, function (Faker $faker) {
         $endDate = '1999-12-31'
     )->format("Y-m-d");
     $gender = $faker->randomElement(['Male', 'Female']);
+    $photo = $faker->image('public/imgs', 140, 140, 'people');
     return [
         'fullname' => $faker->name(strtolower($gender)),
         'email' => $faker->unique()->safeEmail,
@@ -32,7 +33,7 @@ $factory->define(User::class, function (Faker $faker) {
         'birthdate' => $birthdate,
         'gender' => $gender,
         'address' => $faker->address,
-        'photo' => 'user.jpg',
+        'photo' => substr($photo, 7),
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'remember_token' => Str::random(10),
     ];
