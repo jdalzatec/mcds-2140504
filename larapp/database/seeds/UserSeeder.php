@@ -33,6 +33,6 @@ class UserSeeder extends Seeder
         $user->password = bcrypt("amiguito");
         $user->save();
 
-        factory(User::class, 100)->create();
+        factory(User::class, 10)->create();
     }
 }
